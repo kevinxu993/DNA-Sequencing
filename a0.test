@@ -1,0 +1,18 @@
+split_input|'ATGAAAAATGAAATGAAATG'|"DNA without upstream"|['', 'ATGAAAA', 'ATGAAATGAAATG']
+split_input|'GGATGGGGG'|"DNA without downstream"|['GG', 'ATGGGGG', '']
+split_input|'ATGCCCC'|"DNA with only gene"|['', 'ATGCCCC', '']
+split_input|'TTATGTTTTATGTTATGTTATG'|"DNA with upstream, downstream and gene"|['TT', 'ATGTTTT', 'ATGTTATGTTATG']
+split_input|'AAAAAA'|"DNA with only upstream"|['AAAAAA', '', '']
+get_gene|'ATGAAAAATGAAATGAAATG'|"DNA with gene"|'ATGAAAA'
+get_gene|'AAAAAA'|"DNA with no gene"|'ERROR'
+validate_gene|'ATGAAA'|"valid gene"|True
+validate_gene|'ATGAAACC'|"invalid gene that doesnt have full codons"|False
+validate_gene|'ATGAAAA'|"invalid gene that has four consecutive identical nucleotides"|False
+validate_gene|'ATGAA'|"invalid gene that doesnt contain at least one codon after the start codon"|False
+validate_gene|'ATAAA'|"invalid gene that doesnt start with the start codon ATG"|False
+is_palindromic|'ATGGTA'|"palindromic gene"|True
+is_palindromic|'ATGAAA'|"not palindromic gene"|False
+evaluate_sequence|'AAA'|"DNA without gene"|'No Gene Found'
+evaluate_sequence|'GGATGGGGG'|"DNA with invalid gene"|'Invalid Gene'
+evaluate_sequence|'ATGCCC'|"DNA with valid gene"|'Valid Gene Found'
+evaluate_sequence|'ATGGTA'|"DNA with valid and palindromic gene"|'Valid Palindromic Gene Found'

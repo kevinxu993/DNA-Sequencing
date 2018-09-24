@@ -1,0 +1,28 @@
+pair_genes('TCAG', 'AGTC')|'front paired genes'|True
+pair_genes('TCAG', 'AGGC')|'unpaired genes'|False
+pair_genes('TCAG', 'CTGA')|'back paired genes'|True
+pair_genes('A', 'AT')|'unpaired genes with different lengths'|False
+frontpair('TCAG', 'AGTC')|'front paired genes'|True
+frontpair('TCAG', 'CTGA')|'back paired genes'|False
+backpair('TCAG', 'AGTC')|'front paired genes'|False
+backpair('TCAG', 'CTGA')|'back paired genes'|True
+zip_length('TCAGTACTGC')|'no zipped length'|0
+zip_length('AT')|'one zipped length'|1
+zip_length('AGT')|'one zipped length'|1
+zip_length('AGTCTCGCT')|'two zipped length'|2
+zip_length('TCAGTACTGA')|'five zipped length'|5
+setup|a|list('xxTGxyzCACaaaGTaa')
+setup|b|list('ooAC111111111GToo')
+splice_gene(a, b, 'AC', 'GT')|'Mutate the genes'|
+a|'Mutated a'|list('xxCaaaGTaa')
+b|'Mutated b'|list('ooACzyxGToo')
+setup|a|['A', 'T', 'G']
+setup|b|['o', 'o', 'A', 'T', '2', '2', '2', '2', '2', '2', '2', '2', '2', 'T', 'G', 'o', 'o']
+splice_gene(a, b, 'AT', 'TG')|'Mutate the genes and make no change'|
+a|'Same a'|['A', 'T', 'G']
+b|'Same b'|['o', 'o', 'A', 'T', '2', '2', '2', '2', '2', '2', '2', '2', '2', 'T', 'G', 'o', 'o']
+setup|a|list('xxTGxyzCACaaaGTaa')
+setup|b|list('ooTG333333333CAoo')
+splice_gene(a, b, 'AC', 'GT')|'Mutate the genes'|
+a|'Mutated a'|list('xxCaaaGTaa')
+b|'Mutated b'|list('ooTGxyzCAoo')

@@ -1,0 +1,43 @@
+setup|father|Male('12345')
+setup|mother|Female('67890')
+father.set_by_pos(12, 45, 'AG')|'set pair 12 position 45 to be AG'|
+mother.set_by_pos(12, 45, 'CT')|'set pair 12 position 45 to be CT'|
+father.set_marker('rs12345', 3, 97)|'set the marker referring to pair 3 position 97'|
+father.set_by_marker('rs12345', 'GT')|'set the position this marker refers to to be GT'|
+father.get_by_pos(12, 45)|'this should return AG'|'AG'
+father.get_by_marker('rs12345')|'this should return GT'|'GT'
+setup|c|father.get_chromosome(3)
+c.set_by_pos(85, 'TA')|'set pair 3 position 85 to be TA'|
+father.get_by_pos(3, 85)|'this should return TA'|'TA'
+mother.set_chromosome(7, c)|'set pair 7 position 85 to be TA'|
+mother.get_by_pos(7, 85)|'this should return TA'|'TA'
+setup|query|Query()
+query.set_by_pos(12, 45, 'AG')|'set pair 12 position 45 to be AG'|
+father.test(query)|'this should return True'|True
+query.set_by_pos(12, 45, 'AB')|'set pair 12 position 45 to be AB'|
+father.test(query)|'this should return False'|False
+query.set_by_pos(12, 45, 'A1')|'set pair 12 position 45 to be A1'|
+query.set_marker('rs12345', 3, 97)|'set a marker referring to pair 3 position 97'|
+query.set_by_marker('rs12345', '1T')|'set pair 3 position 97 to be 1T'|
+father.test(query)|'this should return True'|True
+query.set_by_marker('rs12345', '1G')|'set pair 3 position 97 to be 1G'|
+father.test(query)|'this should return False'|False
+setup|reverse|Male('123')
+reverse.set_by_pos(12, 45, 'AG')|'set pair 12 position 45 to be AG'|
+reverse.set_by_pos(3, 97, 'GA')|'set pair 3 position 97 to be GA'|
+setup|query1|Query()
+query1.set_by_pos(12, 45, '12')|'set pair 12 position 45 to be 12'|
+query1.set_by_pos(3, 97, '21')|'set pair 3 position 97 to be 21'|
+reverse.test(query1)|'this should return True'|True
+query1.set_by_pos(3, 97, '12')|'set pair 3 position 97 to be 12'|
+reverse.test(query1)|'this should return False'|False
+setup|binder|Binder()
+binder.set_by_pos(12, 45, 'LM')|'set pair 12 position 45 to be left-maternal, CG'|
+binder.set_sex('F')|'set the offspring to be female'|
+setup|child|mother.procreate(father, binder)
+child.get_by_pos(12, 45)|'this should return CG'|'CG'
+setup|binder1|Binder()
+binder1.set_by_pos(12, 45, 'RM')|'set pair 12 position 45 to be left-maternal, AT'|
+binder1.set_sex('M')|'set the offspring to be male'|
+setup|child1|mother.procreate(father, binder1)
+child1.get_by_pos(12, 45)|'this should return AT'|'AT'
